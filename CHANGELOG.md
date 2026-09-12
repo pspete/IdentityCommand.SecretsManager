@@ -4,14 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Fixed
+
+- `Connect-SMTenant` now performs the CyberArk Identity -> Conjur access token exchange
+  automatically, using the same bearer-authenticated session every other companion module shares -
+  no manual token is required for the common case. `-ConjurAccessToken` remains as an optional
+  override for a token obtained some other way.
+
 ### Added
 
 - Initial release of `IdentityCommand.SecretsManager`, wrapping the CyberArk Secrets Manager, SaaS
   API and the Secure Workload Access (SWA) API.
-- `Connect-SMTenant`: resolve the tenant url via platform discovery or a supplied url. Secrets
-  Manager/SWA authenticate with a Conjur access token rather than the CyberArk Identity bearer
-  session every other companion module shares; the Identity -> Conjur exchange itself is **not**
-  implemented - supply a token you have obtained separately via `-ConjurAccessToken`.
+- `Connect-SMTenant`: resolve the tenant url via platform discovery or a supplied url, then exchange
+  the CyberArk Identity session for a Conjur access token and set it as the module's authentication
+  header.
 - Groups and workloads: `Add-SMGroupMember`, `Remove-SMGroupMember`, `Remove-SMWorkloadAnnotation`,
   `Remove-SMWorkload`.
 - Issuers: `Get-`, `New-`, `Set-`, `Remove-SMIssuer` (AWS, GCP and Certificate Manager issuer

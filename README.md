@@ -28,13 +28,13 @@ The `IdentityCommand` module must be installed and available in order to use `Id
 
 ### Authentication
 
-Unlike every other companion module, Secrets Manager and SWA authenticate with a **Conjur access token**, not the CyberArk Identity bearer session `IdentityCommand` establishes. **This module does not implement the CyberArk Identity -> Conjur token exchange** - supply a Conjur access token you have obtained separately:
+Unlike every other companion module, Secrets Manager and SWA authenticate with a **Conjur access token**, not the CyberArk Identity bearer session `IdentityCommand` establishes directly. `Connect-SMTenant` handles this automatically - it resolves the tenant url from the `secrets_manager` platform discovery key (or accepts one directly via `-tenant_url`), then exchanges the current CyberArk Identity session for a Conjur access token and stores it for you:
 
 ```powershell
-Connect-SMTenant -tenant_subdomain sometenant -ConjurAccessToken $Token
+Connect-SMTenant -tenant_subdomain sometenant
 ```
 
-`Connect-SMTenant` still resolves the tenant url from the `secrets_manager` platform discovery key (or accepts one directly via `-tenant_url`); only the auth token itself is not obtained for you. Without `-ConjurAccessToken`, `Connect-SMTenant` warns and every subsequent request fails - see [CLAUDE.md](CLAUDE.md) for what implementing the exchange would need.
+Pass `-ConjurAccessToken` instead to supply a token obtained some other way and skip the exchange call.
 
 ### Groups and Workloads
 
@@ -176,8 +176,7 @@ Get-SMJwks -trustDomainName 'prod.example.com'
 
 - Requires Powershell Core (recommended), or Windows PowerShell (version 5.1)
 - A CyberArk Identity tenant with the Secrets Manager / Secure Workload Access service enabled
-- An Account to Access CyberArk Identity
-- A Conjur access token for the tenant (see [Authentication](#authentication) above)
+- An Account to Access CyberArk Identity (see [Authentication](#authentication) above)
 
 ### Install Options
 

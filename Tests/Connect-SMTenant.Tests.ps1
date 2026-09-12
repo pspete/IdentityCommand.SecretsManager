@@ -38,6 +38,20 @@ Describe $($PSCommandPath -Replace '.Tests.ps1') {
                 }
             }
 
+            Mock Get-IDSession -MockWith {
+                [pscustomobject]@{
+                    WebSession = [Microsoft.PowerShell.Commands.WebRequestSession]::new()
+                }
+            }
+
+            Mock Invoke-IDRestMethod -MockWith {
+                [pscustomobject]@{
+                    protected = 'eyJhbGciOiJjb25qdXIub3JnL3Nsb3NpbG8vdjIifQ=='
+                    payload   = 'eyJzdWIiOiJhZG1pbiJ9'
+                    signature = 'c2ln'
+                }
+            }
+
         }
 
         Context 'Subdomain resolution' {
@@ -67,27 +81,39 @@ Describe $($PSCommandPath -Replace '.Tests.ps1') {
 
         }
 
-        Context 'Conjur access token' {
+        Context 'Conjur access token exchange' {
 
-            It 'builds an independent WebRequestSession carrying the Conjur Authorization header' {
+            It 'exchanges the CyberArk Identity session for a Conjur access token' {
+
+                Connect-SMTenant -tenant_subdomain 'somedomain'
+
+                Should -Invoke -CommandName Get-IDSession -Times 1 -Exactly -Scope It
+
+                Should -Invoke -CommandName Invoke-IDRestMethod -ParameterFilter {
+                    $Method -eq 'POST' -and
+                    $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/api/authn-oidc/cyberark/conjur/authenticate?set_conjur_cookie=true' -and
+                    $null -ne $WebSession
+                } -Times 1 -Exactly -Scope It
+
+                $ISPSSSession.WebSession | Should -BeOfType 'Microsoft.PowerShell.Commands.WebRequestSession'
+                $ISPSSSession.WebSession.Headers['Authorization'] | Should -Match '^Token token="[A-Za-z0-9+/=]+"$'
+
+            }
+
+        }
+
+        Context 'Conjur access token override' {
+
+            It 'builds an independent WebRequestSession carrying a supplied Conjur access token, skipping the exchange' {
 
                 $Token = 'eyJhbGciOiJSUzI1NiJ9.test' | ConvertTo-SecureString -AsPlainText -Force
 
                 Connect-SMTenant -tenant_subdomain 'somedomain' -ConjurAccessToken $Token
 
+                Should -Invoke -CommandName Invoke-IDRestMethod -Times 0 -Exactly -Scope It
+
                 $ISPSSSession.WebSession | Should -BeOfType 'Microsoft.PowerShell.Commands.WebRequestSession'
                 $ISPSSSession.WebSession.Headers['Authorization'] | Should -Be 'Token token="eyJhbGciOiJSUzI1NiJ9.test"'
-
-            }
-
-            It 'warns and leaves WebSession unset when no token is supplied' {
-
-                Mock Write-Warning -MockWith { }
-
-                Connect-SMTenant -tenant_subdomain 'somedomain'
-
-                Should -Invoke -CommandName Write-Warning -Times 1 -Exactly -Scope It
-                $ISPSSSession.WebSession | Should -BeNullOrEmpty
 
             }
 
