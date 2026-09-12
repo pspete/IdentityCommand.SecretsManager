@@ -41,7 +41,7 @@ Describe 'Remove-SMWorkloadAnnotation' {
 
         It 'sends request to expected endpoint' {
             Should -Invoke -CommandName Invoke-IDRestMethod -ModuleName $Script:SMModuleName -ParameterFilter {
-                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/workloads/data%2Fhost1/annotations/ann_1'
+                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/api/workloads/data%2Fhost1/annotations/ann_1'
             } -Times 1 -Exactly -Scope It
         }
         It 'uses expected method' {

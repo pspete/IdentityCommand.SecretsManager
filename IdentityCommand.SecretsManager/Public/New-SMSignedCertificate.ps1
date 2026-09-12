@@ -22,7 +22,7 @@ function New-SMSignedCertificate {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/issuers/$([uri]::EscapeDataString($issuerName))/sign"
+        $URI = "$($ISPSSSession.tenant_url)/api/issuers/$([uri]::EscapeDataString($issuerName))/sign"
 
         $body = $PSBoundParameters | Get-Parameter -ParametersToRemove issuerName
 

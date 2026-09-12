@@ -41,7 +41,7 @@ Describe 'Remove-SMIssuer' {
 
         It 'sends request to expected endpoint' {
             Should -Invoke -CommandName Invoke-IDRestMethod -ModuleName $Script:SMModuleName -ParameterFilter {
-                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/issuers/aws-issuer-1'
+                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/api/issuers/aws-issuer-1'
             } -Times 1 -Exactly -Scope It
         }
         It 'uses expected method' {

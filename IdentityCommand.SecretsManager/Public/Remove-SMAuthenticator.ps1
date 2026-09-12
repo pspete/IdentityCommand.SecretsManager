@@ -17,7 +17,7 @@ function Remove-SMAuthenticator {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/authenticators/$type/$([uri]::EscapeDataString($name))"
+        $URI = "$($ISPSSSession.tenant_url)/api/authenticators/$type/$([uri]::EscapeDataString($name))"
 
         if ($PSCmdlet.ShouldProcess($name, "Delete $type authenticator")) {
 

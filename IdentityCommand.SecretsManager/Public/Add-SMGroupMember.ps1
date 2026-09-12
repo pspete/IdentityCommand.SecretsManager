@@ -22,7 +22,7 @@ function Add-SMGroupMember {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/groups/$([uri]::EscapeDataString($identifier))/members"
+        $URI = "$($ISPSSSession.tenant_url)/api/groups/$([uri]::EscapeDataString($identifier))/members"
 
         $body = $PSBoundParameters | Get-Parameter -ParametersToRemove identifier
 

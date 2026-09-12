@@ -41,7 +41,7 @@ Describe 'New-SMIssuedCertificate' {
 
         It 'sends request to expected endpoint' {
             Should -Invoke -CommandName Invoke-IDRestMethod -ModuleName $Script:SMModuleName -ParameterFilter {
-                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/issuers/issuer-1/issue'
+                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/api/issuers/issuer-1/issue'
             } -Times 1 -Exactly -Scope It
         }
         It 'uses expected method' {

@@ -17,7 +17,7 @@ function Get-SMSecretValue {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/secrets/values"
+        $URI = "$($ISPSSSession.tenant_url)/api/secrets/values"
 
         if ($encode_values.IsPresent) {
             $URI = Add-QueryString -URI $URI -Parameter @{ encode_values = 'base64' }

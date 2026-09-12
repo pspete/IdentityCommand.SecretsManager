@@ -41,7 +41,7 @@ Describe 'Get-SMSecretValue' {
 
         It 'sends request to expected endpoint' {
             Should -Invoke -CommandName Invoke-IDRestMethod -ModuleName $Script:SMModuleName -ParameterFilter {
-                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/secrets/values'
+                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/api/secrets/values'
             } -Times 1 -Exactly -Scope It
         }
         It 'uses expected method' {

@@ -22,7 +22,7 @@ function Remove-SMGroupMember {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/groups/$([uri]::EscapeDataString($identifier))/members/$kind/$([uri]::EscapeDataString($id))"
+        $URI = "$($ISPSSSession.tenant_url)/api/groups/$([uri]::EscapeDataString($identifier))/members/$kind/$([uri]::EscapeDataString($id))"
 
         if ($PSCmdlet.ShouldProcess($identifier, "Remove $kind '$id' as a group member")) {
 

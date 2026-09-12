@@ -34,7 +34,7 @@ function Set-SMIssuer {
 
         #Only AWS and GCP issuers can be updated - Certificate Manager (PKI_VENAFI_SAAS) issuers are
         #not, matching the spec's own note on this endpoint.
-        $URI = "$($ISPSSSession.tenant_url)/issuers/$([uri]::EscapeDataString($issuerName))"
+        $URI = "$($ISPSSSession.tenant_url)/api/issuers/$([uri]::EscapeDataString($issuerName))"
 
         $body = [ordered]@{}
 

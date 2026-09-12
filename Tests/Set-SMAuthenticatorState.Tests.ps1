@@ -41,7 +41,7 @@ Describe 'Set-SMAuthenticatorState' {
 
         It 'sends request to expected endpoint' {
             Should -Invoke -CommandName Invoke-IDRestMethod -ModuleName $Script:SMModuleName -ParameterFilter {
-                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/authenticators/jwt/my_jwt_authn1'
+                $URI -eq 'https://somedomain.secretsmgr.cyberark.cloud/api/authenticators/jwt/my_jwt_authn1'
             } -Times 1 -Exactly -Scope It
         }
         It 'uses expected method' {

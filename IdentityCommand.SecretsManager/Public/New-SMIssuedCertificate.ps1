@@ -57,7 +57,7 @@ function New-SMIssuedCertificate {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/issuers/$([uri]::EscapeDataString($issuerName))/issue"
+        $URI = "$($ISPSSSession.tenant_url)/api/issuers/$([uri]::EscapeDataString($issuerName))/issue"
 
         $Subject = [ordered]@{ common_name = $common_name }
         foreach ($p in 'organization', 'org_units', 'locality', 'state', 'country') {

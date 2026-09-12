@@ -16,7 +16,7 @@ function Remove-SMWorkloadAnnotation {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/workloads/$([uri]::EscapeDataString($identifier))/annotations/$([uri]::EscapeDataString($annotationName))"
+        $URI = "$($ISPSSSession.tenant_url)/api/workloads/$([uri]::EscapeDataString($identifier))/annotations/$([uri]::EscapeDataString($annotationName))"
 
         if ($PSCmdlet.ShouldProcess($identifier, "Remove annotation '$annotationName'")) {
 

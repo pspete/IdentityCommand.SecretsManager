@@ -12,7 +12,7 @@ function Remove-SMWorkload {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/workloads/$([uri]::EscapeDataString($identifier))"
+        $URI = "$($ISPSSSession.tenant_url)/api/workloads/$([uri]::EscapeDataString($identifier))"
 
         if ($PSCmdlet.ShouldProcess($identifier, 'Delete workload')) {
 

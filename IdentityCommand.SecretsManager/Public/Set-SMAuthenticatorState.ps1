@@ -20,7 +20,7 @@ function Set-SMAuthenticatorState {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/authenticators/$type/$([uri]::EscapeDataString($name))"
+        $URI = "$($ISPSSSession.tenant_url)/api/authenticators/$type/$([uri]::EscapeDataString($name))"
 
         $body = @{ enabled = $enabled }
 
