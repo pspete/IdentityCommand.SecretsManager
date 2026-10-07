@@ -1,12 +1,31 @@
-# Change Log
+---
+title: "IdentityCommand.SecretsManager Release 0.1"
+date: 2026-10-07 00:00:00
+version: 0.1.0
+tags:
+  - Release Notes
+  - Connect-SMTenant
+  - Add-SMGroupMember
+  - Remove-SMGroupMember
+  - Remove-SMWorkloadAnnotation
+  - Remove-SMWorkload
+  - Remove-SMIssuer
+  - New-SMIssuedCertificate
+  - New-SMSignedCertificate
+  - Remove-SMAuthenticator
+  - Set-SMAuthenticatorState
+  - Get-SMSecretValue
+  - Remove-SMTrustDomain
+  - Get-SMCABundle
+  - Remove-SMServerGroup
+  - Remove-SMNodeGroup
+  - Remove-SMServer
+  - Get-SMOpenIDConfiguration
+  - Get-SMJwks
+  - Get-SMModuleData
+---
 
-All notable changes to this project will be documented in this file.
-
-## Unreleased
-
-- N/A
-
-## [0.1.0] - 2026-10-07
+## [0.1.0]
 
 ### Fixed
 
@@ -37,4 +56,3 @@ All notable changes to this project will be documented in this file.
 - SWA signing keys: `Get-SMOpenIDConfiguration` and `Get-SMJwks` - both public, requiring no
   authentication.
 - `Get-SMModuleData`: get the module version and session configuration data.
-

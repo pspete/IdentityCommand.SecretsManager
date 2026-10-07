@@ -10,7 +10,7 @@
     RootModule        = 'IdentityCommand.SecretsManager.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.0'
+    ModuleVersion     = '0.1.0'
 
     # ID used to uniquely identify this module
     GUID              = '02994ae3-d092-4eda-b1a5-a485a5e28679'
