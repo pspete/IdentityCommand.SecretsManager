@@ -32,7 +32,7 @@ function New-SMNodeGroup {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/node-groups"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/node-groups"
 
         $body = [ordered]@{ name = $Name; workload_type = $workload_type }
         if ($PSBoundParameters.ContainsKey('description')) { $body['description'] = $description }

@@ -25,7 +25,7 @@ function Get-SMTrustDomain {
 
         if ($PSCmdlet.ParameterSetName -eq 'ByName') {
 
-            $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))"
+            $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))"
 
             $result = Invoke-IDRestMethod -Uri $URI -Method GET -Accept $(Get-SMApiHeader -Version V2)
 
@@ -37,7 +37,7 @@ function Get-SMTrustDomain {
 
         } else {
 
-            $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains"
+            $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains"
             $URI = Add-QueryString -URI $URI -Parameter ($PSBoundParameters | Get-Parameter)
 
             $result = Invoke-IDRestMethod -Uri $URI -Method GET -Accept $(Get-SMApiHeader -Version V2)

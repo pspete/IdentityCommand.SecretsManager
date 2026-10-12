@@ -18,7 +18,7 @@ function Remove-SMNodeGroup {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/node-groups/$([uri]::EscapeDataString($nodeGroupName))"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/node-groups/$([uri]::EscapeDataString($nodeGroupName))"
 
         if ($PSCmdlet.ShouldProcess($nodeGroupName, 'Delete SWA node group')) {
 

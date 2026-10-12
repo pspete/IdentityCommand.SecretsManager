@@ -49,7 +49,7 @@ function Set-SMServer {
     process {
 
         #The sub claim and authentication type are not updatable, matching the spec's own note.
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/components/$([uri]::EscapeDataString($serverName))"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/components/$([uri]::EscapeDataString($serverName))"
 
         $Data = [ordered]@{}
         foreach ($p in 'ca_cert', 'audience', 'jwks_uri', 'public_keys', 'issuer') {

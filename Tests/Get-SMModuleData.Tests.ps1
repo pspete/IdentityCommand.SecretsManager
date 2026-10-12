@@ -1,4 +1,5 @@
-BeforeAll {
+#InModuleScope below runs at discovery, so the module must be imported before then
+BeforeDiscovery {
     #Get Current Directory
     $Here = Split-Path -Parent $PSCommandPath
 

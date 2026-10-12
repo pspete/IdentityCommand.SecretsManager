@@ -50,7 +50,7 @@ function New-SMServer {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/components"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/components"
 
         $Data = [ordered]@{ sub = $sub }
         foreach ($p in 'ca_cert', 'audience', 'jwks_uri', 'public_keys', 'issuer') {

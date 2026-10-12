@@ -32,7 +32,7 @@ function New-SMTrustDomain {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains"
 
         $body = [ordered]@{ name = $name }
 

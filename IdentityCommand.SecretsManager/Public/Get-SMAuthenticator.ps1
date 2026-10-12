@@ -18,7 +18,7 @@ function Get-SMAuthenticator {
 
         if ($PSCmdlet.ParameterSetName -eq 'ById') {
 
-            $URI = "$($ISPSSSession.tenant_url)/api/authenticators/$type/$([uri]::EscapeDataString($name))"
+            $URI = "$(Resolve-RequestUrl)/api/authenticators/$type/$([uri]::EscapeDataString($name))"
 
             $result = Invoke-IDRestMethod -Uri $URI -Method GET -Accept $(Get-SMApiHeader -Version Beta)
 
@@ -30,7 +30,7 @@ function Get-SMAuthenticator {
 
         } else {
 
-            $URI = "$($ISPSSSession.tenant_url)/api/authenticators"
+            $URI = "$(Resolve-RequestUrl)/api/authenticators"
 
             $result = Invoke-IDRestMethod -Uri $URI -Method GET -Accept $(Get-SMApiHeader -Version Beta)
 

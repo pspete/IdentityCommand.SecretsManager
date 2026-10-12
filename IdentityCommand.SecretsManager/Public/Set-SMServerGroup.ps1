@@ -47,7 +47,7 @@ function Set-SMServerGroup {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))"
 
         $body = [ordered]@{}
         if ($PSBoundParameters.ContainsKey('description')) { $body['description'] = $description }

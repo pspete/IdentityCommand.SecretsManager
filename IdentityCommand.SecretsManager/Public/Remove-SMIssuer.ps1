@@ -17,7 +17,7 @@ function Remove-SMIssuer {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/issuers/$([uri]::EscapeDataString($issuerName))"
+        $URI = "$(Resolve-RequestUrl)/api/issuers/$([uri]::EscapeDataString($issuerName))"
 
         if ($keep_secrets.IsPresent) {
             $URI = Add-QueryString -URI $URI -Parameter @{ keep_secrets = $true }

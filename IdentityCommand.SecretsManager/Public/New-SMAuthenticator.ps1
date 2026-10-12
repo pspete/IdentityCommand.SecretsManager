@@ -60,7 +60,7 @@ function New-SMAuthenticator {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/authenticators"
+        $URI = "$(Resolve-RequestUrl)/api/authenticators"
 
         $body = [ordered]@{ type = $type; name = $name }
 

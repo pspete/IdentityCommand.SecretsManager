@@ -12,7 +12,7 @@ function Remove-SMTrustDomain {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))"
 
         #Deletes every resource inside the trust domain along with it.
         if ($PSCmdlet.ShouldProcess($trustDomainName, 'Delete SWA trust domain')) {
