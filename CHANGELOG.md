@@ -4,9 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+- Commands find the Secrets Manager service url from the `IdentityCommand` session on first use, so no connection step is needed after `New-IDSession` or `New-IDPlatformToken`. Commands follow a later `New-IDSession` or `New-IDPlatformToken`, and fail after `Close-IDSession` until you authenticate again. The Conjur access token exchange runs on first use and again after each re-authentication.
+- `Set-SMAccessToken`, to use a Conjur access token obtained some other way.
+
 ### Changed
 
 - CI caches the PowerShell modules it installs, so dependency installs skip the PowerShell Gallery on a cache hit.
+
+### Removed
+
+- `Connect-SMTenant`. Authenticate with `New-IDSession` or `New-IDPlatformToken` from `IdentityCommand` instead.
 
 ## [0.1.0] - 2026-10-07
 

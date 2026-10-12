@@ -26,10 +26,18 @@ The module requires authentication to the Idira Identity platform using the `Ide
 
 The `IdentityCommand` module must be installed and available in order to use `IdentityCommand.SecretsManager`.
 
-Unlike every other companion module, Secrets Manager and SWA authenticate with a **Conjur access token**, not the Idira Identity bearer session `IdentityCommand` establishes directly. `Connect-SMTenant` handles this automatically - it resolves the tenant url from the `secrets_manager` platform discovery key (or accepts one directly via `-tenant_url`), then exchanges the current Idira Identity session for a Conjur access token and stores it for you:
+Authenticate with the `IdentityCommand` module, using `New-IDSession` (interactive user, including any MFA challenges) or `New-IDPlatformToken` (non-interactive service user). No separate connection step is needed:
 
 ```powershell
-Connect-SMTenant -tenant_subdomain sometenant
+New-IDSession -tenant_url https://abc1234.id.cyberark.cloud -Credential $Credential
+
+Get-SMAuthenticator
 ```
 
-Pass `-ConjurAccessToken` instead to supply a token obtained some other way and skip the exchange call.
+Unlike every other companion module, Secrets Manager and SWA authenticate with a **Conjur access token**, not the Identity bearer session `IdentityCommand` establishes. On first use, commands find the tenant url from the `secrets_manager` platform discovery key, then exchange the Identity session for a Conjur access token. A later `New-IDSession` or `New-IDPlatformToken` is exchanged again by the next command, and after `Close-IDSession` commands fail until you authenticate again.
+
+To use a Conjur access token obtained some other way, set it with `Set-SMAccessToken`. Commands then use that token, whatever the Identity session, until the module is imported again:
+
+```powershell
+Set-SMAccessToken -tenant_subdomain sometenant -ConjurAccessToken $Token
+```
