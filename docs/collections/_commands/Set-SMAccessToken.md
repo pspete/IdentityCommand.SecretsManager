@@ -5,38 +5,45 @@ online version:
 schema: 2.0.0
 ---
 
-# Connect-SMTenant
+# Set-SMAccessToken
 
 ## SYNOPSIS
-Connects to a Secrets Manager / SWA tenant
+Uses a Conjur access token obtained some other way
 
 ## SYNTAX
 
 ### Subdomain (Default)
 ```
-Connect-SMTenant [-tenant_subdomain] <String> [-InformationVariable <String>] [-WarningVariable <String>] [-ErrorVariable <String>] [-PipelineVariable <String>] [-OutBuffer <Int32>] [-OutVariable <String>] [-Debug] [-Verbose] [-ConjurAccessToken <SecureString>] [-InformationAction <ActionPreference>] [-WarningAction <ActionPreference>] [-ErrorAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-SMAccessToken -tenant_subdomain <String> -ConjurAccessToken <SecureString> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### URL
 ```
-Connect-SMTenant [-tenant_url] <String> [-InformationVariable <String>] [-WarningVariable <String>] [-ErrorVariable <String>] [-PipelineVariable <String>] [-OutBuffer <Int32>] [-OutVariable <String>] [-Debug] [-Verbose] [-ConjurAccessToken <SecureString>] [-InformationAction <ActionPreference>] [-WarningAction <ActionPreference>] [-ErrorAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-SMAccessToken -tenant_url <String> -ConjurAccessToken <SecureString> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Connects to the Secrets Manager, SaaS and Secure Workload Access (SWA) APIs to be able to run IdentityCommand.SecretsManager module commands against them.
+Sends every subsequent IdentityCommand.SecretsManager request to the given Secrets Manager / SWA tenant, authenticated with the supplied Conjur access token.
 
-Provide either the ISPSS shared services subdomain (the tenant url is resolved automatically via platform discovery) or the tenant url directly.
+Commands normally exchange the IdentityCommand session (New-IDSession or New-IDPlatformToken) for a Conjur access token automatically, so this command is only needed when the token is obtained some other way.
 
-These APIs authenticate with a Conjur access token rather than the CyberArk Identity bearer session every other companion module shares. **The CyberArk Identity -> Conjur access token exchange is not implemented by this module** - supply an access token you have obtained separately via `-ConjurAccessToken`. Without one, every subsequent request fails; a warning is raised to make this explicit.
+Once set, the token is used until the module is imported again; later IdentityCommand sessions, and Close-IDSession, are ignored.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-Connect-SMTenant
+Set-SMAccessToken -tenant_subdomain sometenant -ConjurAccessToken $Token
 ```
 
-Connects to a Secrets Manager / SWA tenant
+Resolves the Secrets Manager url for the sometenant subdomain from platform discovery, and uses the access token in $Token for subsequent requests
+
+### Example 2
+```
+Set-SMAccessToken -tenant_url https://sometenant.secretsmgr.cyberark.cloud -ConjurAccessToken $Token
+```
+
+Uses the access token in $Token for subsequent requests to the given tenant url
 
 ## PARAMETERS
 
@@ -71,14 +78,14 @@ Accept wildcard characters: False
 ```
 
 ### -ConjurAccessToken
-The Conjur access token obtained from the CyberArk Identity -> Conjur exchange, as the raw JWT. This command wraps it in the Token token="..." Authorization header format.
+The Conjur access token, as the exact value the API expects inside the Token token="..." Authorization header.
 
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
 Aliases: 
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -124,7 +131,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 ## OUTPUTS
 
-### System.Object
+### None
 ## NOTES
 
 ## RELATED LINKS

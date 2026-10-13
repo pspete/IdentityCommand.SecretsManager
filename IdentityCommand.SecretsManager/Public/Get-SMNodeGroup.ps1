@@ -26,7 +26,7 @@ function Get-SMNodeGroup {
 
     process {
 
-        $BaseURI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/node-groups"
+        $BaseURI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/node-groups"
 
         if ($PSCmdlet.ParameterSetName -eq 'ByName') {
 

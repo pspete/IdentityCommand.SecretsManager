@@ -15,7 +15,7 @@ function Remove-SMServerGroup {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))"
 
         #Deletes every server in the group and their related Secrets Manager resources along with it.
         if ($PSCmdlet.ShouldProcess($serverGroupName, 'Delete SWA server group')) {

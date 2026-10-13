@@ -14,7 +14,7 @@ function Get-SMIssuer {
 
         if ($PSCmdlet.ParameterSetName -eq 'ById') {
 
-            $URI = "$($ISPSSSession.tenant_url)/api/issuers/$([uri]::EscapeDataString($issuerName))"
+            $URI = "$(Resolve-RequestUrl)/api/issuers/$([uri]::EscapeDataString($issuerName))"
 
             #Send Request
             $result = Invoke-IDRestMethod -Uri $URI -Method GET -Accept $(Get-SMApiHeader -Version V2)
@@ -27,7 +27,7 @@ function Get-SMIssuer {
 
         } else {
 
-            $URI = "$($ISPSSSession.tenant_url)/api/issuers/conjur"
+            $URI = "$(Resolve-RequestUrl)/api/issuers/conjur"
 
             #Send Request
             $result = Invoke-IDRestMethod -Uri $URI -Method GET -Accept $(Get-SMApiHeader -Version V2)

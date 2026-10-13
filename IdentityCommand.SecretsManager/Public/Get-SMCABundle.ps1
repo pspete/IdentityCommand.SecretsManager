@@ -16,7 +16,7 @@ function Get-SMCABundle {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/.well-known/ca-bundles"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/.well-known/ca-bundles"
 
         if ($PSBoundParameters.ContainsKey('format')) {
             $URI = Add-QueryString -URI $URI -Parameter @{ format = $format }

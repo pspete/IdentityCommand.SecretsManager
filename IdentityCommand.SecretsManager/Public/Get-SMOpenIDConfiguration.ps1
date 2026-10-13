@@ -12,7 +12,7 @@ function Get-SMOpenIDConfiguration {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/.well-known/openid-configuration"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/.well-known/openid-configuration"
 
         #This endpoint is public - no authentication is required.
         $result = Invoke-IDRestMethod -Uri $URI -Method GET

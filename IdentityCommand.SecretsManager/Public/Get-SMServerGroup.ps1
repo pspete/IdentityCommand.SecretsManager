@@ -23,7 +23,7 @@ function Get-SMServerGroup {
 
     process {
 
-        $BaseURI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups"
+        $BaseURI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups"
 
         if ($PSCmdlet.ParameterSetName -eq 'ByName') {
 

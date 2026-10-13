@@ -89,6 +89,7 @@ $ISPSSSession = [ordered]@{
     User               = $null
     TenantId           = $null
     SessionId          = $null
+    Subdomain          = $null
     WebSession         = $null
     StartTime          = $null
     ElapsedTime        = $null
@@ -100,3 +101,11 @@ $ISPSSSession = [ordered]@{
 } | Add-CustomType -Type IdCmd.Session
 
 New-Variable -Name ISPSSSession -Value $ISPSSSession -Scope Script -Force
+
+#Discovery key for Resolve-RequestUrl
+New-Variable -Name ServiceKey -Value 'secrets_manager' -Scope Script -Force
+
+#Secrets Manager authenticates with a Conjur access token, exchanged for the IdentityCommand session
+New-Variable -Name SessionConnectedHook -Value {
+    $ISPSSSession.WebSession = Get-SMConjurSession -Token (Get-SMConjurToken)
+} -Scope Script -Force

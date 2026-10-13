@@ -26,7 +26,7 @@ function Get-SMServer {
 
     process {
 
-        $BaseURI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/components"
+        $BaseURI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/components"
 
         if ($PSCmdlet.ParameterSetName -eq 'ByName') {
 

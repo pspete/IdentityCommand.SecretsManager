@@ -51,7 +51,7 @@ function New-SMIssuer {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/issuers/conjur"
+        $URI = "$(Resolve-RequestUrl)/api/issuers/conjur"
 
         $data = switch ($PSCmdlet.ParameterSetName) {
 

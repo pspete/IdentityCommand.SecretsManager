@@ -13,7 +13,7 @@ function Get-SMJwks {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/.well-known/jwks"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/.well-known/jwks"
 
         #This endpoint is public - no authentication is required. Returned whole (not unwrapped to
         #just .keys) since it is a discovery document, not a list resource.

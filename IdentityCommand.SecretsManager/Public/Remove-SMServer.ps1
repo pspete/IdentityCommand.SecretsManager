@@ -18,7 +18,7 @@ function Remove-SMServer {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/components/$([uri]::EscapeDataString($serverName))"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/components/$([uri]::EscapeDataString($serverName))"
 
         if ($PSCmdlet.ShouldProcess($serverName, 'Delete SWA server')) {
 

@@ -28,7 +28,7 @@ function Set-SMNodeGroup {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/node-groups/$([uri]::EscapeDataString($nodeGroupName))"
+        $URI = "$(Resolve-RequestUrl)/api/swa/trust-domains/$([uri]::EscapeDataString($trustDomainName))/server-groups/$([uri]::EscapeDataString($serverGroupName))/node-groups/$([uri]::EscapeDataString($nodeGroupName))"
 
         $body = [ordered]@{}
         if ($PSBoundParameters.ContainsKey('description')) { $body['description'] = $description }
