@@ -1,3 +1,7 @@
+![Logo][Logo]
+
+[Logo]: /docs/media/images/IdentityCommand.SecretsManager.png
+
 # IdentityCommand.SecretsManager
 
 **IdentityCommand.SecretsManager** is a PowerShell module that provides a set of easy-to-use commands, allowing you to interact with the **CyberArk Secrets Manager, SaaS API** and **Secure Workload Access (SWA) API** from within the PowerShell environment.
